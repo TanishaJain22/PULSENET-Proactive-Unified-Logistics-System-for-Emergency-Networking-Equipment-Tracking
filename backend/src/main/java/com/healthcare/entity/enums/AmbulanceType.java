@@ -1,0 +1,10 @@
+package com.healthcare.entity.enums;
+
+public enum AmbulanceType {
+    BASIC_LIFE_SUPPORT,
+    ADVANCED_LIFE_SUPPORT,
+    CRITICAL_CARE_TRANSPORT,
+    NEONATAL_TRANSPORT,
+    BARIATRIC_TRANSPORT,
+    PSYCHIATRIC_TRANSPORT
+}

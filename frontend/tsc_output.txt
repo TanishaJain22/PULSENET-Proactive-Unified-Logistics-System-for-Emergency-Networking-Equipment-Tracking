@@ -1,0 +1,3 @@
+src/components/landing/Hero.tsx(99,21): error TS2353: Object literal may only specify known properties, and 'exit' does not exist in type 'Transition<any>'.
+src/components/landing/Navbar.tsx(15,23): error TS2307: Cannot find module '@/components/ui/label' or its corresponding type declarations.
+src/hooks/useScrollReveal.ts(1,31): error TS1484: 'RefObject' is a type and must be imported using a type-only import when 'verbatimModuleSyntax' is enabled.

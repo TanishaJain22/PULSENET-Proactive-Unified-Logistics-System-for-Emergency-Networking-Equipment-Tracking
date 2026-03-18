@@ -1,0 +1,2 @@
+﻿src/screens/driver/NavigationScreen.tsx(54,48): error TS2339: Property 'latitude' does not exist on type 'Hospital'.
+src/screens/driver/NavigationScreen.tsx(54,78): error TS2339: Property 'longitude' does not exist on type 'Hospital'.

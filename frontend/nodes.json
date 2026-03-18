@@ -1,0 +1,27 @@
+{
+  "meshes": [
+    "Inner_pipe_holo_shader_vfxforge_Blue_0",
+    "Middle_Pipe_holo_shader_vfxforge_Dark_Green_0",
+    "Outer_Pipe_holo_shader_vfxforge_Blue_0",
+    "Health_holo_shader_vfxforge_Green_0"
+  ],
+  "nodes": [
+    "Sketchfab_model",
+    "7df88cad704c4ce0a7f131c3fbfa06c5.fbx",
+    "Object_2",
+    "RootNode",
+    "Pick_up_Base",
+    "Inner_pipe",
+    "Inner_pipe_holo_shader_vfxforge_Blue_0",
+    "Middle_Pipe",
+    "Middle_Pipe_holo_shader_vfxforge_Dark_Green_0",
+    "Outer_Pipe",
+    "Outer_Pipe_holo_shader_vfxforge_Blue_0",
+    "Ability",
+    "Health",
+    "Health_holo_shader_vfxforge_Green_0",
+    "spotLight1",
+    "Object_15",
+    "Object_16"
+  ]
+}

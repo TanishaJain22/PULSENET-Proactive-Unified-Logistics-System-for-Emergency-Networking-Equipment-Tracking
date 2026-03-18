@@ -1,0 +1,953 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Aurora Background custom color mapping (Green theme) */
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+  --blue-500: #72e3ad; /* Primary */
+  --indigo-300: #4ade80; /* Vibrant green */
+  --blue-300: #34d399; /* Emerald tint */
+  --violet-200: #9ae9c4; /* Lighter tint */
+  --blue-400: #22c55e; /* Deeper green */
+
+  --background: #fcfcfc;
+  --foreground: #171717;
+  --card: #fcfcfc;
+  --card-foreground: #171717;
+  --popover: #fcfcfc;
+  --popover-foreground: #525252;
+  --primary: #72e3ad;
+  --primary-foreground: #1e2723;
+  --secondary: #fdfdfd;
+  --secondary-foreground: #171717;
+  --muted: #ededed;
+  --muted-foreground: #202020;
+  --accent: #ededed;
+  --accent-foreground: #202020;
+  --destructive: #ca3214;
+  --destructive-foreground: #fffcfc;
+  --border: #dfdfdf;
+  --input: #f6f6f6;
+  --ring: #72e3ad;
+  --chart-1: #72e3ad;
+  --chart-2: #3b82f6;
+  --chart-3: #8b5cf6;
+  --chart-4: #f59e0b;
+  --chart-5: #10b981;
+  --sidebar: #fcfcfc;
+  --sidebar-foreground: #707070;
+  --sidebar-primary: #72e3ad;
+  --sidebar-primary-foreground: #1e2723;
+  --sidebar-accent: #ededed;
+  --sidebar-accent-foreground: #202020;
+  --sidebar-border: #dfdfdf;
+  --sidebar-ring: #72e3ad;
+
+  --shadow-login: 0 20px 45px rgba(0,0,0,0.12), 0 8px 18px rgba(0,0,0,0.08);
+
+  --font-sans: Outfit, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-mono: monospace;
+  --radius: 0.5rem;
+  --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
+  --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
+  --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 1px 2px -1px hsl(0 0% 0% / 0.17);
+  --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 1px 2px -1px hsl(0 0% 0% / 0.17);
+  --shadow-md: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 2px 4px -1px hsl(0 0% 0% / 0.17);
+  --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 4px 6px -1px hsl(0 0% 0% / 0.17);
+  --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 8px 10px -1px hsl(0 0% 0% / 0.17);
+  --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.43);
+  --tracking-normal: 0.025em;
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #e2e8f0;
+  --card: #171717;
+  --card-foreground: #e2e8f0;
+  --popover: #242424;
+  --popover-foreground: #a9a9a9;
+  --primary: #006239;
+  --primary-foreground: #dde8e3;
+  --secondary: #242424;
+  --secondary-foreground: #fafafa;
+  --muted: #1f1f1f;
+  --muted-foreground: #a2a2a2;
+  --accent: #313131;
+  --accent-foreground: #fafafa;
+  --destructive: #541c15;
+  --destructive-foreground: #ede9e8;
+  --border: #292929;
+  --input: #242424;
+  --ring: #4ade80;
+  --chart-1: #4ade80;
+  --chart-2: #60a5fa;
+  --chart-3: #a78bfa;
+  --chart-4: #fbbf24;
+  --chart-5: #2dd4bf;
+  --sidebar: #121212;
+  --sidebar-foreground: #898989;
+  --sidebar-primary: #006239;
+  --sidebar-primary-foreground: #dde8e3;
+  --sidebar-accent: #313131;
+  --sidebar-accent-foreground: #fafafa;
+  --sidebar-border: #292929;
+  --sidebar-ring: #4ade80;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+
+  --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
+  --tracking-tight: calc(var(--tracking-normal) - 0.025em);
+  --tracking-normal: var(--tracking-normal);
+  --tracking-wide: calc(var(--tracking-normal) + 0.025em);
+  --tracking-wider: calc(var(--tracking-normal) + 0.05em);
+  --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+
+  --animate-aurora: aurora 60s linear infinite;
+
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-normal);
+  }
+  
+  /* Smooth zoom transition */
+  [style*="transform: scale"] {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Smooth scrolling for all elements */
+  * {
+    scroll-behavior: smooth;
+  }
+  
+  /* Improved scrolling for mobile devices */
+  @media (max-width: 768px) {
+    .dialog-scroll {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+  }
+  
+  /* Enhanced scrolling for dialog content */
+  [data-radix-scroll-area-viewport] {
+    scroll-behavior: smooth;
+  }
+  
+  /* Zoom-aware 3D model and frame scaling */
+  .zoom-responsive-3d {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .zoom-responsive-frame {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Ensure 3D models scale with zoom */
+  .model-container {
+    transform-origin: center center;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Frame containers that should scale with zoom */
+  .frame-container {
+    transform-origin: center center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Canvas elements should scale properly */
+  canvas.zoom-responsive {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
+  }
+  
+  /* WebGL and Three.js containers */
+  .three-container,
+  .webgl-container {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
+  }
+  
+  /* Canvas wrapper for proper scaling */
+  .canvas-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Ensure fixed header stays in place during zoom */
+  header[style*="transform: scale"] {
+    position: fixed !important;
+    z-index: 30;
+  }
+  
+  /* Ensure main content has proper spacing from fixed header */
+  main[style*="paddingTop"] {
+    box-sizing: border-box;
+  }
+  
+  /* Prevent content from being hidden behind fixed header */
+  .hospital-admin-layout main {
+    min-height: calc(100vh - 64px);
+  }
+  
+  /* Ensure page headings are properly spaced */
+  .hospital-admin-layout main > div > div:first-child h2,
+  .hospital-admin-layout main > div > div:first-child h1 {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  /* Hospital page content spacing */
+  .hospital-page-content {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  
+  /* Ensure proper spacing for all hospital page headings */
+  .hospital-page-header {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  
+  /* Fix for zoom scaling affecting header positioning */
+  @media (min-width: 768px) {
+    .hospital-admin-layout main {
+      padding-top: calc(64px / var(--zoom-scale, 1) + 1.5rem);
+    }
+  }
+  
+  /* Transfer form layout improvements */
+  .transfer-form-section {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .transfer-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .transfer-form-field label {
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--foreground);
+  }
+  
+  .transfer-form-field input,
+  .transfer-form-field select {
+    height: 2.5rem;
+  }
+  
+  /* Checkbox alignment in forms */
+  .transfer-checkbox-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: flex-start;
+  }
+  
+  .transfer-checkbox-field .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 2.5rem;
+    padding: 0.5rem 0;
+  }
+  
+  /* Ensure consistent spacing in transfer modal */
+  .transfer-modal .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  .transfer-modal .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+  
+  .transfer-modal .grid {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  /* Emergency alert dialog improvements */
+  .emergency-alert-dialog {
+    padding: 1.5rem;
+  }
+  
+  .emergency-alert-dialog .dialog-header {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .emergency-alert-dialog .dialog-content {
+    padding: 1.5rem 0;
+  }
+  
+  .emergency-alert-dialog .dialog-footer {
+    padding-top: 1rem;
+    margin-top: 1rem;
+  }
+  
+  /* Ensure emergency dialog text doesn't touch boundaries */
+  .emergency-alert-dialog .patient-info {
+    padding: 1.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  .emergency-alert-dialog .ai-recommendations {
+    padding: 1rem 1.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  .emergency-alert-dialog ul {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  .emergency-alert-dialog li {
+    margin: 0.5rem 0;
+    padding-left: 0.5rem;
+  }
+  
+  /* Emergency card layout improvements */
+  .emergency-card {
+    min-height: 120px;
+    padding: 1.5rem;
+  }
+  
+  .emergency-card .flex-1 {
+    min-width: 0; /* Allows text truncation */
+    padding-right: 1rem;
+  }
+  
+  .emergency-card h4 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .emergency-card .text-xs {
+    line-height: 1.4;
+  }
+  
+  .emergency-log-item {
+    padding: 1.25rem;
+    min-height: 60px;
+  }
+  
+  .emergency-log-item .space-y-1 > * + * {
+    margin-top: 0.25rem;
+  }
+  
+  /* Ensure emergency cards don't have text touching boundaries */
+  .emergency-card,
+  .emergency-log-item {
+    box-sizing: border-box;
+  }
+  
+  .emergency-card > *,
+  .emergency-log-item > * {
+    flex-shrink: 0;
+  }
+  
+  .emergency-card .flex-1,
+  .emergency-log-item .flex-1 {
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  
+  /* Smooth zoom transitions for all zoom-responsive elements */
+  .zoom-responsive-3d,
+  .zoom-responsive-frame,
+  .model-container,
+  .frame-container {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  /* Prevent text blurriness during zoom */
+  .zoom-responsive-3d *,
+  .zoom-responsive-frame * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Custom scrollbar for dialog content - thin visible scrollbar */
+  .dialog-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+    /* Ensure scrolling works on touch devices */
+    touch-action: pan-y;
+    /* Force hardware acceleration for smooth scrolling */
+    transform: translateZ(0);
+    will-change: scroll-position;
+    /* Thin scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    /* Ensure it can receive scroll events */
+    pointer-events: auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Thin scrollbar for Chrome, Safari and Opera */
+  .dialog-scroll::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+  }
+  
+  .dialog-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .dialog-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+  }
+  
+  .dialog-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Ensure dialog content can scroll */
+  [data-slot="dialog-content"] .dialog-scroll,
+  [data-slot="dialog-content"] [style*="overflow-y: auto"] {
+    max-height: inherit;
+    overflow-y: auto !important;
+  }
+  
+  /* Ensure proper scroll container */
+  [data-slot="dialog-content"] {
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+  }
+  
+  /* Smooth scrolling for all scrollable elements */
+  .dialog-scroll,
+  [data-radix-dialog-content],
+  [data-radix-sheet-content] {
+    scroll-behavior: smooth;
+  }
+  
+  /* Simple and direct scrolling fix for dialogs */
+  [data-radix-dialog-content] {
+    max-height: 90vh;
+    overflow: hidden;
+  }
+  
+  [data-radix-dialog-content] .overflow-y-auto {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+  }
+  
+  /* Prevent body scroll when dialog is open */
+  body:has([data-radix-dialog-overlay]),
+  body:has([data-state="open"][data-slot="dialog-overlay"]) {
+    overflow: hidden !important;
+  }
+  
+  /* Ensure dialog overlay blocks background interaction */
+  [data-radix-dialog-overlay],
+  [data-slot="dialog-overlay"] {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Ensure dialog content is above overlay */
+  [data-radix-dialog-content],
+  [data-slot="dialog-content"] {
+    position: fixed;
+    z-index: 51;
+  }
+  
+  /* Ensure scrollable areas work on touch devices */
+  .overflow-y-auto {
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Force scrollable areas to be scrollable - invisible scrollbar */
+  .force-scroll {
+    overflow-y: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+    /* Ensure touch events work properly */
+    touch-action: pan-y pinch-zoom;
+    /* Force hardware acceleration */
+    transform: translate3d(0, 0, 0);
+    /* Ensure minimum height for scrolling */
+    min-height: 200px;
+    /* Hide scrollbar but keep functionality */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .force-scroll::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+  
+  /* Prevent dialog overlay from blocking touch events */
+  [data-radix-dialog-overlay] {
+    touch-action: none;
+    pointer-events: auto;
+  }
+  
+  [data-radix-dialog-content] {
+    touch-action: auto;
+    pointer-events: auto;
+  }
+  
+  /* Ensure scrollable content can receive touch events */
+  .dialog-scroll {
+    pointer-events: auto;
+    touch-action: pan-y;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* Mobile-specific improvements */
+  @media (max-width: 768px) {
+    .force-scroll {
+      /* Keep scrollbar invisible on mobile */
+      scrollbar-width: thin;
+      scrollbar-color: transparent transparent;
+    }
+    
+    .force-scroll::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+    
+    /* Ensure touch scrolling works on all mobile browsers */
+    .dialog-scroll,
+    .force-scroll {
+      -webkit-overflow-scrolling: touch !important;
+      overflow-scrolling: touch !important;
+      /* Prevent momentum scrolling issues */
+      overscroll-behavior-y: contain;
+      /* Ensure proper touch handling */
+      touch-action: pan-y !important;
+    }
+  }
+  
+  /* Additional fixes for iOS Safari */
+  @supports (-webkit-touch-callout: none) {
+    .dialog-scroll,
+    .force-scroll {
+      -webkit-overflow-scrolling: touch;
+      transform: translateZ(0);
+      /* Fix for iOS scroll bounce */
+      overscroll-behavior: contain;
+    }
+  }
+}
+
+/* Ambulance ping animation */
+@keyframes ping-slow {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+.animate-ping-slow {
+  animation: ping-slow 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@layer base {
+  @property --pos-x {
+    syntax: '<percentage>';
+    initial-value: 11.14%;
+    inherits: false;
+  }
+
+  @property --pos-y {
+    syntax: '<percentage>';
+    initial-value: 140%;
+    inherits: false;
+  }
+
+  @property --spread-x {
+    syntax: '<percentage>';
+    initial-value: 150%;
+    inherits: false;
+  }
+
+  @property --spread-y {
+    syntax: '<percentage>';
+    initial-value: 180.06%;
+    inherits: false;
+  }
+
+  @property --color-1 {
+    syntax: '<color>';
+    initial-value: #000;
+    inherits: false;
+  }
+
+  @property --color-2 {
+    syntax: '<color>';
+    initial-value: #08012c;
+    inherits: false;
+  }
+
+  @property --color-3 {
+    syntax: '<color>';
+    initial-value: #4e1e40;
+    inherits: false;
+  }
+
+  @property --color-4 {
+    syntax: '<color>';
+    initial-value: #70464e;
+    inherits: false;
+  }
+
+  @property --color-5 {
+    syntax: '<color>';
+    initial-value: #88394c;
+    inherits: false;
+  }
+
+  @property --border-angle {
+    syntax: '<angle>';
+    initial-value: 20deg;
+    inherits: true;
+  }
+
+  @property --border-color-1 {
+    syntax: '<color>';
+    initial-value: hsla(340, 75%, 60%, 0.2);
+    inherits: true;
+  }
+
+  @property --border-color-2 {
+    syntax: '<color>';
+    initial-value: hsla(340, 75%, 40%, 0.75);
+    inherits: true;
+  }
+
+  @property --stop-1 {
+    syntax: '<percentage>';
+    initial-value: 37.35%;
+    inherits: false;
+  }
+
+  @property --stop-2 {
+    syntax: '<percentage>';
+    initial-value: 61.36%;
+    inherits: false;
+  }
+
+  @property --stop-3 {
+    syntax: '<percentage>';
+    initial-value: 78.42%;
+    inherits: false;
+  }
+
+  @property --stop-4 {
+    syntax: '<percentage>';
+    initial-value: 89.52%;
+    inherits: false;
+  }
+
+  @property --stop-5 {
+    syntax: '<percentage>';
+    initial-value: 100%;
+    inherits: false;
+  }
+}
+
+@layer components {
+  .gradient-button {
+    @apply relative appearance-none cursor-pointer;
+    background: radial-gradient(
+      var(--spread-x) var(--spread-y) at var(--pos-x) var(--pos-y),
+      var(--color-1) var(--stop-1),
+      var(--color-2) var(--stop-2),
+      var(--color-3) var(--stop-3),
+      var(--color-4) var(--stop-4),
+      var(--color-5) var(--stop-5)
+    );
+    transition:
+      --pos-x 0.5s,
+      --pos-y 0.5s,
+      --spread-x 0.5s,
+      --spread-y 0.5s,
+      --color-1 0.5s,
+      --color-2 0.5s,
+      --color-3 0.5s,
+      --color-4 0.5s,
+      --color-5 0.5s,
+      --border-angle 0.5s,
+      --border-color-1 0.5s,
+      --border-color-2 0.5s,
+      --stop-1 0.5s,
+      --stop-2 0.5s,
+      --stop-3 0.5s,
+      --stop-4 0.5s,
+      --stop-5 0.5s;
+  }
+
+  .gradient-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      var(--border-angle),
+      var(--border-color-1),
+      var(--border-color-2)
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .gradient-button:hover {
+    --pos-x: 0%;
+    --pos-y: 91.51%;
+    --spread-x: 120.24%;
+    --spread-y: 103.18%;
+    --color-1: #c96287;
+    --color-2: #c66c64;
+    --color-3: #cc7d23;
+    --color-4: #37140a;
+    --color-5: #000;
+    --border-angle: 190deg;
+    --border-color-1: hsla(340, 78%, 90%, 0.1);
+    --border-color-2: hsla(340, 75%, 90%, 0.6);
+    --stop-1: 0%;
+    --stop-2: 8.8%;
+    --stop-3: 21.44%;
+    --stop-4: 71.34%;
+    --stop-5: 85.76%;
+  }
+
+  .gradient-button-variant {
+    --color-1: #001a12;
+    --color-2: #064e3b;
+    --color-3: #10b981;
+    --color-4: #34d399;
+    --color-5: #72e3ad;
+    --border-angle: 200deg;
+    --border-color-1: hsla(160, 75%, 60%, 0.6);
+    --border-color-2: hsla(160, 50%, 60%, 0.15);
+  }
+
+  .gradient-button-variant:hover {
+    --pos-x: 0%;
+    --pos-y: 95.51%;
+    --spread-x: 110.24%;
+    --spread-y: 110.2%;
+    --color-1: #001a12;
+    --color-2: #72e3ad;
+    --color-3: #34d399;
+    --color-4: #10b981;
+    --color-5: #064e3b;
+    --stop-1: 0%;
+    --stop-2: 10%;
+    --stop-3: 35.44%;
+    --stop-4: 71.34%;
+    --stop-5: 90.76%;
+    --border-angle: 210deg;
+    --border-color-1: hsla(160, 75%, 90%, 0.2);
+    --border-color-2: hsla(160, 50%, 90%, 0.75);
+  }
+
+  .gradient-card-green {
+    @apply relative overflow-hidden;
+    background: radial-gradient(
+      var(--spread-x) var(--spread-y) at var(--pos-x) var(--pos-y),
+      var(--color-1) var(--stop-1),
+      var(--color-2) var(--stop-2),
+      var(--color-3) var(--stop-3),
+      var(--color-4) var(--stop-4),
+      var(--color-5) var(--stop-5)
+    );
+    --color-1: #001a12;
+    --color-2: #064e3b;
+    --color-3: #10b981;
+    --color-4: #34d399;
+    --color-5: #72e3ad;
+  }
+}
+
+/* Sidebar transition */
+.sidebar-enter { transform: translateX(-100%); }
+.sidebar-enter-active { transform: translateX(0); transition: transform 0.2s ease; }
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(114, 227, 173, 0.6); /* more visible green */
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  animation: ripple 4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes glow-teal {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(114, 227, 173, 0.4), 0 0 10px rgba(114, 227, 173, 0.2);
+    border-color: rgba(114, 227, 173, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(114, 227, 173, 0.8), 0 0 25px rgba(114, 227, 173, 0.4);
+    border-color: rgba(114, 227, 173, 0.8);
+  }
+}
+
+.animate-teal-glow {
+  animation: glow-teal 3s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+/* Custom slider styles */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-track {
+  background: #374151;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ef4444;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+.slider::-moz-range-track {
+  background: #374151;
+  height: 8px;
+  border-radius: 4px;
+  border: none;
+}
+
+.slider::-moz-range-thumb {
+  background: #ef4444;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.slider::-moz-range-thumb:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
