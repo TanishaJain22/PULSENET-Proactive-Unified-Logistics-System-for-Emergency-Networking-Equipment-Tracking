@@ -1,0 +1,79 @@
+databases:
+  - name: pulsenet-db
+    databaseName: pulsenet
+    plan: free
+
+services:
+  # Python ML Service
+  - type: web
+    name: pulsenet-ml
+    runtime: python
+    plan: free
+    rootDir: ml
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+
+  # Spring Boot Backend
+  - type: web
+    name: pulsenet-backend
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: pulsenet-db
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: pulsenet-db
+          property: port
+      - key: DATABASE_USER
+        fromDatabase:
+          name: pulsenet-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: pulsenet-db
+          property: password
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: pulsenet-db
+          property: database
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SPRING_MAIL_PASSWORD
+        sync: false
+      - key: VAPI_PRIVATE_KEY
+        sync: false
+      - key: VAPI_PUBLIC_KEY
+        sync: false
+      - key: CLOUDFLARE_R2_ACCESS_KEY_ID
+        sync: false
+      - key: CLOUDFLARE_R2_SECRET_ACCESS_KEY
+        sync: false
+
+  # React Frontend (Static Site)
+  - type: web
+    name: pulsenet-frontend
+    runtime: static
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

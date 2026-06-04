@@ -1,1 +1,29 @@
+# Backend
+backend/target/
+backend/uploads/
 backend/src/main/resources/gcp-service-account.json
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# ML
+ml/venv/
+ml/__pycache__/
+ml/notebooks/.ipynb_checkpoints/
+
+# Mobile
+mobile_app/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Maven
+apache-maven-3.9.6/

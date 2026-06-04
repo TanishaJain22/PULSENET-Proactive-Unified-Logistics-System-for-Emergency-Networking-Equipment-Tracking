@@ -558,10 +558,11 @@ async def test_endpoint(data: Dict[str, Any]):
 
 if __name__ == "__main__":
     # Run the FastAPI server
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run(
         "api:app",
-        host="127.0.0.1",
-        port=8000,
-        reload=True,
+        host="0.0.0.0",
+        port=port,
+        reload=os.environ.get("RENDER") is None,  # Only reload in local dev
         log_level="info"
     )
