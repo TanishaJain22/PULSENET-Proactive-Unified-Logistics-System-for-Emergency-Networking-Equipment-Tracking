@@ -301,16 +301,13 @@ public class DataSeeder implements CommandLineRunner {
         // Then, create all hospital admin users (after hospitals are committed)
         System.out.println("👨‍⚕️ Creating Hospital Administrators...");
         for (HospitalData hospitalData : INDORE_HOSPITALS) {
-            UUID hospitalId = UUID.fromString(hospitalData.id);
-            if (hospitalRepository.existsById(hospitalId)) {
-                createHospitalAdmin(hospitalId, hospitalData.email, hospitalData.adminName);
-            }
+            UUID hospitalId = getActualHospitalId(hospitalData.id, hospitalData.email);
+            createHospitalAdmin(hospitalId, hospitalData.email, hospitalData.adminName);
         }
         
         System.out.println("✅ Indore Hospital Network created successfully");
     }
     private void createHospitalIfNotExists(HospitalData data) {
-        UUID hospitalId = UUID.fromString(data.id);
         String baseRegistrationNo = "REG/MP/2024/" + data.id.substring(0, 8);
         String registrationNo = baseRegistrationNo;
         
@@ -321,10 +318,12 @@ public class DataSeeder implements CommandLineRunner {
             suffix++;
         }
         
-        // Check if hospital exists by ID
-        if (!hospitalRepository.existsById(hospitalId)) {
+        // Check if hospital exists by email
+        boolean exists = hospitalRepository.findAll().stream()
+            .anyMatch(h -> h.getContactEmail() != null && h.getContactEmail().equalsIgnoreCase(data.email));
+            
+        if (!exists) {
             Hospital hospital = new Hospital();
-            hospital.setId(hospitalId);
             hospital.setName(data.name);
             hospital.setContactEmail(data.email);
             hospital.setContactPhone(data.phone);
@@ -339,7 +338,7 @@ public class DataSeeder implements CommandLineRunner {
             hospitalRepository.save(hospital);
             System.out.println("✅ Hospital created: " + data.name + " (Registration: " + registrationNo + ")");
         } else {
-            System.out.println("ℹ️ Hospital already exists (by ID): " + data.name);
+            System.out.println("ℹ️ Hospital already exists (by email): " + data.name);
         }
     }
     
@@ -378,7 +377,7 @@ public class DataSeeder implements CommandLineRunner {
         int vehicleCounter = 1001;
         
         for (HospitalData hospitalData : INDORE_HOSPITALS) {
-            UUID hospitalId = UUID.fromString(hospitalData.id);
+            UUID hospitalId = getActualHospitalId(hospitalData.id, hospitalData.email);
             
             // Create 3-4 ambulances per hospital
             int ambulanceCount = hospitalData.bedCapacity > 500 ? 4 : 3;
@@ -484,7 +483,7 @@ public class DataSeeder implements CommandLineRunner {
         Patient patient = patientRepository.findByEmail("shubh.sharma@gmail.com").orElse(null);
         if (patient == null) return;
         
-        UUID hospitalId = UUID.fromString("11111111-1111-1111-1111-111111111111"); // MY Hospital
+        UUID hospitalId = getActualHospitalId("11111111-1111-1111-1111-111111111111", "admin.myhospital@pulsenet.in");
         Hospital hospital = hospitalRepository.findById(hospitalId).orElse(null);
         
         // Visit 1: Diabetes diagnosis (2019)
@@ -522,7 +521,7 @@ public class DataSeeder implements CommandLineRunner {
         Patient patient = patientRepository.findByEmail("rajesh.patel@gmail.com").orElse(null);
         if (patient == null) return;
         
-        UUID hospitalId = UUID.fromString("22222222-2222-2222-2222-222222222222"); // Choithram Hospital
+        UUID hospitalId = getActualHospitalId("22222222-2222-2222-2222-222222222222", "admin.choithram@pulsenet.in");
         Hospital hospital = hospitalRepository.findById(hospitalId).orElse(null);
         
         // Cardiac emergency visit
@@ -540,7 +539,7 @@ public class DataSeeder implements CommandLineRunner {
         Patient patient = patientRepository.findByEmail("anita.verma@gmail.com").orElse(null);
         if (patient == null) return;
         
-        UUID hospitalId = UUID.fromString("33333333-3333-3333-3333-333333333333"); // Bombay Hospital
+        UUID hospitalId = getActualHospitalId("33333333-3333-3333-3333-333333333333", "admin.bombay@pulsenet.in");
         Hospital hospital = hospitalRepository.findById(hospitalId).orElse(null);
         
         // Pregnancy follow-up
@@ -575,6 +574,14 @@ public class DataSeeder implements CommandLineRunner {
     }
 
     // ==================== HELPER METHODS ====================
+    
+    private UUID getActualHospitalId(String staticIdStr, String email) {
+        return hospitalRepository.findAll().stream()
+            .filter(h -> h.getContactEmail() != null && h.getContactEmail().equalsIgnoreCase(email))
+            .map(Hospital::getId)
+            .findFirst()
+            .orElse(UUID.fromString(staticIdStr));
+    }
     
     private Visit createVisit(Patient patient, Hospital hospital, LocalDateTime dateTime, 
                              VisitType type, String complaint, String diagnosis, String treatment) {
