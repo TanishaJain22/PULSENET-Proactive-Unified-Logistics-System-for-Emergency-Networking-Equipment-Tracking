@@ -1,75 +1,165 @@
-# PulseNet - Healthcare Resource Coordination Platform
+# 🏥 PulseNet: Proactive Unified Logistics System for Emergency Networking Equipment Tracking
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PulseNet** is an advanced, real-time emergency healthcare resource coordination platform designed to optimize emergency responses, ambulance dispatch, patient transfers, and resource allocation. Centered around a realistic regional healthcare ecosystem (currently mapped to Indore, Madhya Pradesh, India), the platform coordinates critical data between dispatchers, hospital administrators, paramedics, and patients.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Key Features
 
-## React Compiler
+*   **AI-Powered Hospital Recommendation**: Utilizes a Python-based FastAPI service running a trained XGBoost model to evaluate patient vitals (NEWS2 score, heart rate, oxygen level, BP, etc.), estimated travel times, traffic, and hospital load to recommend the optimal destination.
+*   **Real-time Map & Routing**: Integrated Leaflet Maps with routing services to track ambulance locations, calculate shortest routes, and estimate travel times dynamically.
+*   **Emergency QR Code Integration**: Patients get a unique medical QR code that allows paramedics or emergency response teams to scan and instantly pull up crucial medical records, allergies, chronic conditions, and current medications.
+*   **Comprehensive Dashboards**:
+    *   **System Admin**: Manage hospital approvals, view system-wide metrics, and oversee the entire emergency coordination network.
+    *   **Hospital Admin**: Monitor available beds (ICU and General), manage the ambulance fleet, accept incoming emergency/transfer cases, and dispatch vehicles.
+    *   **Patient Portal**: Access digital health cards, review consultation visits, and manage emergency access settings.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Frontend
+*   **Framework**: React (v19) with Vite (v7)
+*   **Styling**: Vanilla CSS, TailwindCSS (v4), Framer Motion (for smooth micro-animations)
+*   **Maps & Navigation**: Leaflet, React-Leaflet, Leaflet Routing Machine, Mapbox Polyline
+*   **Visualization**: Recharts (for health metrics and occupancy stats)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Backend
+*   **Core**: Java 17, Spring Boot 3.2
+*   **Database**: PostgreSQL
+*   **Data Access**: Spring Data JPA / Hibernate
+*   **Security**: JWT-based stateless authentication, Spring Security
+*   **Integrations**: Gemini AI (for medical summaries), Cloudflare R2 (for document/image hosting)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Machine Learning & AI
+*   **Service**: Python 3.13, FastAPI, Uvicorn
+*   **Model**: XGBoost (XGB Classifier), Scikit-Learn
+*   **Clinical Logic**: NEWS2 (National Early Warning Score) medical algorithm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 📐 System Architecture
+
+```
+                       ┌─────────────────────────┐
+                       │     React Frontend      │
+                       │     (Vite + Leaflet)    │
+                       └────────────┬────────────┘
+                                    │
+                                    │ HTTP / REST
+                                    ▼
+                       ┌─────────────────────────┐
+                       │   Spring Boot Backend   │
+                       └──────┬───────────┬──────┘
+                              │           │
+           JPA / PostgreSQL   │           │ HTTP / JSON
+                              ▼           ▼
+                      ┌───────────┐   ┌───────────────────────────┐
+                      │PostgreSQL │   │     FastAPI ML Service    │
+                      │ Database  │   │  (XGBoost Recommendation) │
+                      └───────────┘   └───────────────────────────┘
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📦 Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+Prayatna_Final_Submission/
+├── frontend/               # React Vite UI client
+├── backend/                # Spring Boot REST API
+├── ml/                     # Python FastAPI & XGBoost models
+├── apache-maven-3.9.6/     # Local Maven configuration
+└── README.md               # Project documentation
 ```
 
-# Prayatna_3.0
+---
+
+## ⚙️ Setup & Running Instructions
+
+### Prerequisites
+*   Java 17 or higher
+*   PostgreSQL installed and running
+*   Python 3.10+
+*   Node.js (v18+) & npm
+
+---
+
+### Step 1: Set Up the Database
+1.  Open your PostgreSQL CLI or pgAdmin and create a database named `pulsenet`:
+    ```sql
+    CREATE DATABASE pulsenet;
+    ```
+2.  Open `backend/src/main/resources/application.properties` and verify your credentials:
+    ```properties
+    spring.datasource.username=postgres
+    spring.datasource.password=your_db_password
+    ```
+
+---
+
+### Step 2: Start the Python ML Service
+1.  Navigate to the `ml` directory:
+    ```bash
+    cd ml
+    ```
+2.  Set up the virtual environment:
+    ```bash
+    python -m venv venv
+    venv\Scripts\activate      # On Windows
+    source venv/bin/activate   # On macOS/Linux
+    ```
+3.  Install requirements:
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  Start the service:
+    ```bash
+    python start_ai_service.py
+    ```
+    *The service will be active at:* [http://127.0.0.1:8000](http://127.0.0.1:8000)
+
+---
+
+### Step 3: Run the Spring Boot Backend
+1.  Navigate to the `backend` directory:
+    ```bash
+    cd backend
+    ```
+2.  Run the application using the local Maven wrapper:
+    ```bash
+    ..\apache-maven-3.9.6\bin\mvn spring-boot:run
+    ```
+    *The backend will boot on port `8080` and seed initial database records automatically.*
+
+---
+
+### Step 4: Run the React Frontend
+1.  Navigate to the `frontend` directory:
+    ```bash
+    cd frontend
+    ```
+2.  Install packages:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+    *Access the web app at:* [http://localhost:5173/](http://localhost:5173/)
+
+---
+
+## 🔐 Seeded Test Credentials
+
+To log in and experience the full capabilities of the platform, use these pre-configured user credentials:
+
+| Role | Email Address | Password | Purpose |
+|---|---|---|---|
+| **System Admin** | `sysadmin@pulsenet.gov.in` | `PulseNet@2024` | Approve hospitals, track platform statistics |
+| **Hospital Admin (MY Hospital)** | `admin.myhospital@pulsenet.in` | `hospital123` | Dispatch ambulances, manage ICU beds |
+| **Hospital Admin (Choithram)** | `admin.choithram@pulsenet.in` | `hospital123` | Dispatch ambulances, manage ICU beds |
+| **Hospital Admin (Bombay Hospital)** | `admin.bombay@pulsenet.in` | `hospital123` | Dispatch ambulances, manage ICU beds |
+| **General Patient (User 1)** | `rahul.sharma@gmail.com` | `rahul123` | View health QR code, personal medical history |
+| **General Patient (User 2)** | `priya.patel@gmail.com` | `priya123` | View health QR code, personal medical history |
