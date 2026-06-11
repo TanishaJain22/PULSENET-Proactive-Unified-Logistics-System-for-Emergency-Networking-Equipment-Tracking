@@ -1,14 +1,12 @@
 databases:
   - name: pulsenet-db
     databaseName: pulsenet
-    plan: free
 
 services:
   # Python ML Service
   - type: web
     name: pulsenet-ml
     runtime: python
-    plan: free
     rootDir: ml
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
@@ -20,7 +18,6 @@ services:
   - type: web
     name: pulsenet-backend
     runtime: docker
-    plan: free
     rootDir: backend
     dockerfilePath: ./Dockerfile
     envVars:
