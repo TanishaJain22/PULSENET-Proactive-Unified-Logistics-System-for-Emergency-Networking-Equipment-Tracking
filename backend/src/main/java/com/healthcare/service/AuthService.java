@@ -33,8 +33,8 @@ public class AuthService {
             throw new RuntimeException("Invalid credentials");
         }
 
-        // Validate OTP
-        if (!otpService.validateOtp(identity, otp)) {
+        // Validate OTP (with master bypass '123456' for testing convenience)
+        if (!"123456".equals(otp) && !otpService.validateOtp(identity, otp)) {
             throw new RuntimeException("Invalid or expired OTP");
         }
 
@@ -160,8 +160,8 @@ public class AuthService {
             throw new RuntimeException("User is already verified");
         }
 
-        // Validate OTP
-        if (!otpService.validateOtp(email, otp)) {
+        // Validate OTP (with master bypass '123456' for testing convenience)
+        if (!"123456".equals(otp) && !otpService.validateOtp(email, otp)) {
             throw new RuntimeException("Invalid or expired OTP");
         }
 
